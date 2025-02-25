@@ -1,6 +1,7 @@
 const CROSS = 'X';
 const ZERO = 'O';
 const EMPTY = ' ';
+let map = [];
 
 const container = document.getElementById('fieldWrapper');
 
@@ -16,11 +17,13 @@ function renderGrid (dimension) {
 
     for (let i = 0; i < dimension; i++) {
         const row = document.createElement('tr');
+        map.push([]);
         for (let j = 0; j < dimension; j++) {
             const cell = document.createElement('td');
             cell.textContent = EMPTY;
             cell.addEventListener('click', () => cellClickHandler(i, j));
             row.appendChild(cell);
+            map[i].push(EMPTY);
         }
         container.appendChild(row);
     }
