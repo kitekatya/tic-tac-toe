@@ -4,13 +4,15 @@ const EMPTY = ' ';
 const RED = '#ff0000';
 let map = [];
 let firstPlayer = true;
+let isGameOver = false;
 const container = document.getElementById('fieldWrapper');
 
 startGame();
 addResetListener();
 
 function startGame () {
-    renderGrid(3);
+    const dimension = prompt('Введите ');
+    renderGrid(dimension);
 }
 
 function renderGrid (dimension) {
@@ -76,6 +78,7 @@ function isFriendship() {
 function cellClickHandler (row, col) {
     // Пиши код тут
     console.log(`Clicked on cell: ${row}, ${col}`);
+    if (isGameOver) return;
 
     
 
@@ -90,10 +93,14 @@ function cellClickHandler (row, col) {
     }
     firstPlayer = !firstPlayer;
     let winner = isGameOver()
-    if (winner != EMPTY) alert(`winner is ${winner}`)
+    if (winner != EMPTY) {
+        alert(`winner is ${winner}`)
+        isGameOver = true;
+    }
 
     if (isFriendship()){
         alert("Победила дружба");
+        isGameOver = true;
     }
     /* Пользоваться методом для размещения символа в клетке так:
         renderSymbolInCell(ZERO, row, col);
@@ -120,6 +127,7 @@ function addResetListener () {
 
 function resetClickHandler () {
     console.log('reset!');
+    renderGrid(map.length)
 }
 
 
