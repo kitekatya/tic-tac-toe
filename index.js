@@ -29,9 +29,31 @@ function renderGrid (dimension) {
     }
 }
 
+function isGameOver(){
+
+    for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[i].length; j++) {
+            if (map[i][j] === EMPTY) continue;
+            
+            if (j + 2 < map[i].length && map[i][j] === map[i][j + 1] && map[i][j + 1] === map[i][j + 2]) {
+                return map[i][j];
+            } else if (i + 2 < map.length && map[i][j] === map[i + 1][j] && map[i + 1][j] === map[i + 2][j]) {
+                return map[i][j];
+            } else if (i + 2 < map.length && map[i][j] === map[i + 1][j + 1] && map[i + 1][j + 1] === map[i + 2][j + 2]) {
+                return map[i][j];
+            } else if (i + 2 < map.length && map[i][j] === map[i + 1][j - 1] && map[i + 1][j - 1] === map[i + 2][j - 2]) {
+                return map[i][j];
+            }
+        }
+    }
+    return EMPTY;
+}
+
 function cellClickHandler (row, col) {
     // Пиши код тут
     console.log(`Clicked on cell: ${row}, ${col}`);
+
+    if (map[row][col] != EMPTY) return;
 
     if (firstPlayer) {
         renderSymbolInCell(CROSS, row, col);
@@ -41,6 +63,8 @@ function cellClickHandler (row, col) {
         map[row][col] = ZERO;
     }
     firstPlayer = !firstPlayer;
+    let winner = isGameOver()
+    if (winner != EMPTY) alert(`winner is ${winner}`)
 
     /* Пользоваться методом для размещения символа в клетке так:
         renderSymbolInCell(ZERO, row, col);
