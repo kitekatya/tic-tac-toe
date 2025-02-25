@@ -2,7 +2,7 @@ const CROSS = 'X';
 const ZERO = 'O';
 const EMPTY = ' ';
 let map = [];
-
+let firstPlayer = true;
 const container = document.getElementById('fieldWrapper');
 
 startGame();
@@ -33,6 +33,14 @@ function cellClickHandler (row, col) {
     // Пиши код тут
     console.log(`Clicked on cell: ${row}, ${col}`);
 
+    if (firstPlayer) {
+        renderSymbolInCell(CROSS, row, col);
+        map[row][col] = CROSS;
+    } else {
+        renderSymbolInCell(ZERO, row, col);
+        map[row][col] = ZERO;
+    }
+    firstPlayer = !firstPlayer;
 
     /* Пользоваться методом для размещения символа в клетке так:
         renderSymbolInCell(ZERO, row, col);
